@@ -13,7 +13,7 @@ import Options from "./options";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MessageReply } from "./messageReply";
 
-const Message = ({ user, message, chatId, showOptions, setShowOptions, messageInfo, setMessageInfo, userLoggedIn, setShowReply, messageReply, setMessageReply, userInfo, message_reply, message_index }) => {
+const Message = ({ user, message, chatId, showOptions, setShowOptions, messageInfo, setMessageInfo, userLoggedIn, setShowReply, messageReply, setMessageReply, userInfo, message_reply, message_group_index, message_index }) => {
 
   const [ showFullImage, setShowFullImage ] = useState(false);
   const [ fullImageSrc, setFullImageSrc ] = useState('');
@@ -154,7 +154,7 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
             <C.Options  className={`options ${userLoggedIn?.email === user && "me"}`} isActive={messageInfo?.id == message?.id}>
               <button className="bt-open" onClick={defineOptions} disabled={showOptions == message?.id}><HiDotsHorizontal/></button>
               {showOptions == message?.id &&
-                <Options message={messageInfo} canDelete={userLoggedIn?.email === user} copied={copied} setCopied={setCopied} chatId={chatId} setShowOptions={setShowOptions} message_index={message_index} setMessageInfo={setMessageInfo} setShowReply={setShowReply} setMessageReply={setMessageReply} defineMessageReply={defineMessageReply}/>
+                <Options message={messageInfo} canDelete={userLoggedIn?.email === user} copied={copied} setCopied={setCopied} chatId={chatId} setShowOptions={setShowOptions} message_index={message_index} message_group_index={message_group_index} setMessageInfo={setMessageInfo} setShowReply={setShowReply} setMessageReply={setMessageReply} defineMessageReply={defineMessageReply}/>
               }
             </C.Options>
           }

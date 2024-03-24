@@ -178,8 +178,8 @@ const Body = ({ chatId, showUserDetails, setShowUserDetails, userInfo, isOpenPop
       
       <C.ScrollMessages ref={refMessages} showUserDetails={showUserDetails}>
         {!messages && messagesLoaded && <Loading/>}
-        {messages && Object.keys(messages).map(data => (
-          <div key={data}>
+        {messages && Object.keys(messages).map((data, key_group) => (
+          <div key={key_group}>
             <h2 className="date">{getDayOfWeek(data)}</h2>
             <ul>
               {messages[data].map((message, index) => {
@@ -201,6 +201,7 @@ const Body = ({ chatId, showUserDetails, setShowUserDetails, userInfo, isOpenPop
                     message={message}
                     message_reply={allMessages.find(objeto => objeto.id == message.reply_message)}
                     message_index={index}
+                    message_group_index={key_group}
                   />
                 )
                 })

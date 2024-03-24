@@ -9,7 +9,7 @@ import * as C from './styles.js';
 import { useEffect, useRef } from "react";
 import { BsFillReplyFill } from "react-icons/bs";
 
-export default function Options ({ chatId, message, canDelete, copied, setCopied, setShowOptions, setMessageInfo, setShowReply, setMessageReply, defineMessageReply, message_index }) {
+export default function Options ({ chatId, message, canDelete, copied, setCopied, setShowOptions, setMessageInfo, setShowReply, setMessageReply, defineMessageReply, message_group_index, message_index }) {
     
     const Container = useRef(null);
 
@@ -33,7 +33,7 @@ export default function Options ({ chatId, message, canDelete, copied, setCopied
     }
 
     return (
-        <C.Container ref={Container} message_index={message_index} by_other_user={!canDelete}>
+        <C.Container ref={Container} containerOnTop={message_group_index >= 1 || ((message_index > 1) && (message_group_index == 0))} by_other_user={!canDelete}>
             <button onClick={()=>defineMessageReply(message)}><BsFillReplyFill></BsFillReplyFill> Responder</button>
             {message?.type != 'text' &&
                 <button onClick={()=>downloadMessage(message.file)}><MdDownload></MdDownload> Baixar</button>

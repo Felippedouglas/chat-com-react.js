@@ -6,8 +6,8 @@ export const Container = styled.div`
   max-width: 150px;
   border-radius: 5px;
   padding: 5px;
-  bottom: ${props => props.message_index > 1 ? '40px' : 'unset'};
-  top: ${props => props.message_index <= 1 ? '40px' : 'unset'};
+  bottom: ${props => props.containerOnTop ? '40px' : 'unset'};
+  top: ${props => !props.containerOnTop ? '40px' : 'unset'};
   left: 50%;
   transform: translateX(-50%);
   background: #505050;
