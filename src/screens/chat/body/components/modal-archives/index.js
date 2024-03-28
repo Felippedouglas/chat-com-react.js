@@ -24,9 +24,9 @@ export default function ModalArchives({setIsOpenPopUpSendArchives, defineSendFil
 
     return(
         <C.Container ref={Container}>
-            <button onClick={()=>defineSendFile()}><MdInsertPhoto /> Imagem</button>
-            <button onClick={()=>defineSendFile()} disabled><FaVideo /> Video</button>
-            <button onClick={()=>defineSendFile()} disabled><IoDocument /> Documento</button>
+            <button onClick={()=>defineSendFile('image')}><MdInsertPhoto /> Imagem</button>
+            <button onClick={()=>defineSendFile('video')}><FaVideo /> Video</button>
+            <button onClick={()=>defineSendFile('document')}><IoDocument /> Documento</button>
         </C.Container>
     )
 }

@@ -18,6 +18,26 @@ export const Container = styled.div`
     min-height: 100vh;
     padding: 5px 10px;
   }
+
+  .video-preview {
+    max-width: 100%;
+    max-height: 100%;
+  }
+
+  .doc-view {
+    padding: 20px 50px;
+    border: 2px solid #505050;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+  }
+
+  .doc-view svg {
+    width: 70px;
+    height: 70px;
+  }
 `;
 
 export const Header = styled.header`
@@ -156,22 +176,59 @@ export const ContentArchivesSend = styled.div`
   &.active {
     border-color: #f00;
   }
-`;
 
-export const ArchiveSend = styled.img`
-  min-height: 70px;
-  max-height: 70px;
-  min-width: 70px;
-  max-width: 70px;
-  object-fit: cover;
-  background: #222222;
-  cursor: pointer;
-  border: 1px solid #252525;
-  border-radius: 5px;
-  transition: all .3s ease;
+  img {
+    min-height: 70px;
+    max-height: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    object-fit: cover;
+    background: #222222;
+    cursor: pointer;
+    border: 1px solid #252525;
+    border-radius: 5px;
+    transition: all .3s ease;
+  }
 
-  &:hover {
+  .video {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 70px;
+    max-height: 70px;
+    min-width: 70px;
+    max-width: 70px;
+    object-fit: cover;
+    background: #222222;
+    cursor: pointer;
+    border: 1px solid #252525;
+    border-radius: 5px;
+    transition: all .3s ease;
+  
+  }
+
+  .video svg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #f0f;
+    z-index: 9;
+    background: #00f;
+  }
+
+  img:hover, video:hover {
     opacity: .8;
+  }
+
+  .document {
+    color: #fff;
+  }
+
+  .document svg {
+    width: 50px;
+    height: 50px;
   }
 `;
 
@@ -267,4 +324,12 @@ export const ContainerSendArchive = styled.div`
     color: #181818;
     border-radius: 50px;
   }
+`;
+
+export const MainFileView = styled.img`
+  /* Estilos para a visualização principal do arquivo */
+`;
+
+export const LoadingIndicator = styled.div`
+  /* Estilos para o indicador de carregamento */
 `;

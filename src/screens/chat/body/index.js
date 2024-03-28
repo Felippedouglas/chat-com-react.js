@@ -14,7 +14,7 @@ import ModalArchives from "./components/modal-archives";
 import Loading from "../../../components/load";
 import Reply from "./components/reply";
 
-const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetails, userInfo, isOpenPopUpSendArchives, setIsOpenPopUpSendArchives, setSendFile, showReply, setShowReply, messageReply, setMessageReply }) => {
+const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetails, userInfo, isOpenPopUpSendArchives, setIsOpenPopUpSendArchives, setFileType, setSendFile, showReply, setShowReply, messageReply, setMessageReply }) => {
   
   const [ user ] = useAuthState(auth);
 
@@ -159,10 +159,12 @@ const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetai
 
   const [copied, setCopied] = useState(false);
 
-  function defineSendFile() {
+  function defineSendFile(type) {
     setSendFile(true);
+    setFileType(undefined);
 
     setTimeout(() => {
+      setFileType(type);
       setSendFile(false);  
     }, 100);
   };

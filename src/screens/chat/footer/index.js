@@ -8,7 +8,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import firebase from "firebase/compat/app";
 import UploadArchives from "./archives";
 
-const ChatFooter = ({ chatId, userInfo, sendFile, setSendFile, filesSendLength , setFilesSendLength, isOpenPopUpSendArchives, setIsOpenPopUpSendArchives, messageReply, setMessageReply, setShowReply }) => {
+const ChatFooter = ({ chatId, userInfo, sendFile, setSendFile, filesSendLength , setFilesSendLength, isOpenPopUpSendArchives, setIsOpenPopUpSendArchives, messageReply, setMessageReply, setShowReply, fileType, setFileType }) => {
   const [user] = useAuthState(auth);
   const [message, setMessage] = useState("");
   const refEmailInput = useRef(null);
@@ -66,7 +66,7 @@ const ChatFooter = ({ chatId, userInfo, sendFile, setSendFile, filesSendLength ,
 
   return (
     <C.Container filesSendLength={filesSendLength}>
-      <UploadArchives chatId={chatId} userInfo={userInfo} sendFile={sendFile} setSendFile={setSendFile} sendMessage={sendMessage} setFilesSendLength={setFilesSendLength} setIsOpenPopUpSendArchives={setIsOpenPopUpSendArchives}/>
+      <UploadArchives chatId={chatId} userInfo={userInfo} sendFile={sendFile} setSendFile={setSendFile} sendMessage={sendMessage} setFilesSendLength={setFilesSendLength} setIsOpenPopUpSendArchives={setIsOpenPopUpSendArchives} fileType={fileType} setFileType={setFileType}/>
       {!filesSendLength >= 1 &&
         <>
           <C.FilesButton onClick={() => setIsOpenPopUpSendArchives(!isOpenPopUpSendArchives)}>{isOpenPopUpSendArchives ? <CgClose /> : <MdInsertPhoto />}</C.FilesButton>
