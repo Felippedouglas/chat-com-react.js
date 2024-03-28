@@ -70,6 +70,7 @@ export const Body = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 60px;
 `;
 
 export const Avatar = styled.button`

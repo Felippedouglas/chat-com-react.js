@@ -14,11 +14,10 @@ import ModalArchives from "./components/modal-archives";
 import Loading from "../../../components/load";
 import Reply from "./components/reply";
 
-const Body = ({ chatId, showUserDetails, setShowUserDetails, userInfo, isOpenPopUpSendArchives, setIsOpenPopUpSendArchives, setSendFile, showReply, setShowReply, messageReply, setMessageReply }) => {
+const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetails, userInfo, isOpenPopUpSendArchives, setIsOpenPopUpSendArchives, setSendFile, showReply, setShowReply, messageReply, setMessageReply }) => {
   
   const [ user ] = useAuthState(auth);
 
-  const [ messages, setMessages ] = useState(null);
   const [ allMessages, setAllMessages ] = useState([]);
 
   const [ messagesLoaded, setMessagesLoaded ] = useState(false);
@@ -106,8 +105,7 @@ const Body = ({ chatId, showUserDetails, setShowUserDetails, userInfo, isOpenPop
           });
 
           setMessages(objetosSeparadosPorData);
-          setAllMessages(allMessages)
-          console.log(allMessages)
+          setAllMessages(allMessages);
 
           setTimeout(() => {
             setMessagesLoaded(true);
@@ -218,7 +216,7 @@ const Body = ({ chatId, showUserDetails, setShowUserDetails, userInfo, isOpenPop
       </C.ScrollMessages>
       {showUserDetails &&
         <C.Scroll showUserDetails={showUserDetails}>
-          <User userInfo={userInfo} showUserDetails={showUserDetails} setShowUserDetails={setShowUserDetails}/>
+          <User chatId={chatId} userInfo={userInfo} showUserDetails={showUserDetails} setShowUserDetails={setShowUserDetails}/>
         </C.Scroll>
       }
     </C.Container>

@@ -35,13 +35,6 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
 
   }, [message]);
 
-  useEffect(() => {
-    if (message_reply) {
-      console.log(message_reply)
-    }
-
-  }, [message]);
-
   const openFullImage = (src)=> {
     setShowFullImage(true);
     setFullImageSrc(src);
