@@ -157,8 +157,6 @@ const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetai
     }
   }, [ messagesLoaded ]);
 
-  const [copied, setCopied] = useState(false);
-
   function defineSendFile(type) {
     setSendFile(true);
     setFileType(undefined);

@@ -2,7 +2,7 @@ import React, { useState } from 'react';import firebase from 'firebase/compat/ap
 import 'firebase/compat/storage';
 import { getDownloadURL, getStorage, ref } from 'firebase/storage';
 
-const downloadMessage = async (file) => {
+const downloadArchive = async (file) => {
     try {
         const response = await fetch(file.src);
         const blob = await response.blob();
@@ -15,4 +15,4 @@ const downloadMessage = async (file) => {
     }
 };
 
-export { downloadMessage };
+export { downloadArchive };

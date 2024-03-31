@@ -39,7 +39,6 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: end;
-  padding: ${props => props.typeImage ? '0' : '3px'};
   max-width: 50%;
   min-height: min-content;
   overflow: hidden;
@@ -47,16 +46,6 @@ export const Content = styled.div`
 
   &.content-me {
     align-items: start;
-  }
-  
-  .checkVisualized {
-    font-size: 1.2rem;
-    color: #bbb;
-    margin-left: 5px;
-  }
-
-  .visualized {
-    color: #fff;
   }
 
   @media (max-width: 1000px) {
@@ -89,8 +78,6 @@ export const Message = styled.span`
   align-items: start;
   word-wrap: break-word;
   overflow-wrap: break-word;
-  margin: ${props => props.typeImage ? '3px 3px 0 3px' : '5px'};
-
   a {
     color: #fff;
     transition: all .3s ease;
@@ -105,42 +92,6 @@ export const Message = styled.span`
     text-decoration: none;
   }
 
-  .img-message {
-    width: 100%;
-    min-width: 200px;
-    max-width: 400px;
-    min-height: 200px;
-    max-height: 250px;
-    object-fit: cover;
-    border-radius: 10px;
-    cursor: pointer;
-    transition: all .3s ease;
-  }
-  
-  .img-message:hover {
-    opacity: .8;
-  }
-
-`;
-
-export const MessageDeleted = styled.section`
-  display: flex;
-  align-items: center;
-  color: #fff;
-  font-size: .9rem;
-  font-weight: 600;
-  max-width: 100%;
-  padding: 10px 0 10px 10px;
-  margin: 5px 10px 5px 5px;
-`;
-
-export const SpanMessageDeleted = styled.span`
-  font-style: italic;
-  font-weight: 500;
-  max-width: 100%;
-  flex-flow: wrap;
-  margin: 0 10px 0 5px;
-  opacity: .8;
 `;
 
 export const MessageDate = styled.div`
@@ -151,18 +102,22 @@ export const MessageDate = styled.div`
   color: #fff !important;
   font-weight: 600;
   text-align: right;
-  height: 15px;
   max-width: max-content;
-  margin: 0 10px 5px 5px;
-  position: ${props => props.typeImage ? 'absolute' : 'initial'};
-  bottom: ${props => props.typeImage ? '10px' : '100px'};
-  padding: ${props => props.typeImage ? '10px 15px' : '0'};
   border-radius: 50px;
-  background: ${props => props.typeImage ? '#101010a1' : 'unset'};
 
   &.other {
     color: #ccc;
     left: 15px;
+  }
+  
+  .checkVisualized {
+    font-size: 1.2rem;
+    color: #bbb;
+    margin: 5px 0 0 2px ;
+  }
+
+  .visualized {
+    color: #fff;
   }
 `;
 

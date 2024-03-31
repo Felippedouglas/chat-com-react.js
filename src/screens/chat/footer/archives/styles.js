@@ -91,7 +91,7 @@ export const Header = styled.header`
   }
 `;
 
-export const MainArchiveView = styled.img`
+export const MainFileView = styled.img`
   margin-top: 50px;
   height: 50vh;
   max-height: 100%;
@@ -324,12 +324,4 @@ export const ContainerSendArchive = styled.div`
     color: #181818;
     border-radius: 50px;
   }
-`;
-
-export const MainFileView = styled.img`
-  /* Estilos para a visualização principal do arquivo */
-`;
-
-export const LoadingIndicator = styled.div`
-  /* Estilos para o indicador de carregamento */
 `;

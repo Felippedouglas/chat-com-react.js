@@ -12,11 +12,17 @@ import FullImage from "../../../../../components/full-image";
 import Options from "./options";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MessageReply } from "./messageReply";
+import Document from "./components/document";
+import Deleted from "./components/deleted";
+import Video from "./components/video";
+import Image from "./components/Image";
+import Text from "./components/text";
 
 const Message = ({ user, message, chatId, showOptions, setShowOptions, messageInfo, setMessageInfo, userLoggedIn, setShowReply, messageReply, setMessageReply, userInfo, message_reply, message_group_index, message_index }) => {
 
   const [ showFullImage, setShowFullImage ] = useState(false);
   const [ fullImageSrc, setFullImageSrc ] = useState('');
+  const [ typeViewer, setTypeViewer ] = useState('');
   
   const [copied, setCopied] = useState(false);
 
@@ -35,9 +41,10 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
 
   }, [message]);
 
-  const openFullImage = (src)=> {
+  const openFullImage = (src, type)=> {
     setShowFullImage(true);
     setFullImageSrc(src);
+    setTypeViewer(type);
   };
   
   const linkRegex = /(?:^|\s)(?:(?:https?|ftp):\/\/|www\.)?[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?(?=\s|$)/;
@@ -88,7 +95,28 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
         setShowReply(true);
         setMessageReply(messageReply);
     }, 100);
-}
+  }
+
+  const Date = () => {
+    return (
+      <C.MessageDate
+        className={userLoggedIn?.email !== user ? "other" : ""}
+      >
+        <span>
+          {message?.date && <ConvertDate hourAndMinutes={message?.date?.seconds} />}
+        </span>
+        <span>
+          {message.visualized && userLoggedIn?.email === user
+            ? <BsCheckAll title="Visualizada" className="checkVisualized visualized" />
+            : (!message.visualized && !message.deleted && userLoggedIn?.email === user
+              ? <BsCheckLg title="Não visualizado" className="checkVisualized" />
+              : null
+            )
+          }
+        </span>
+      </C.MessageDate>
+    )
+  }
 
 
   return (
@@ -96,8 +124,9 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
     <C.Container id={message?.id}>
       
       {showFullImage &&
-        <FullImage setShowFullImage={setShowFullImage} image={fullImageSrc} imageName={'photo'}/>
+        <FullImage user={userInfo} setShowFullImage={setShowFullImage} image={fullImageSrc} imageName={'photo'} typeViewer={typeViewer}/>
       }
+
 
       {message &&
         <C.Line onDoubleClick={()=>defineMessageReply(message)} className={userLoggedIn?.email === user ? "me" : ""} active={messageReply?.id == message?.id} typeImage={message?.type == 'image' && !message?.deleted}>
@@ -109,39 +138,31 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
                     <MessageReply message={message_reply} userInfo={userInfo} typeMessage={message?.type}/>
                   </a>
                 }
+                {message?.type == 'document' &&
+                  <Document document={message.file}>
+                    <Date/>
+                  </Document>
+                }
                 {message?.type == 'text' ? (
-                  <div dangerouslySetInnerHTML={{ __html: formatMessage(message.message) }}></div>
-                ) : (
-                  <img className="img-message" height={message?.file.height} width={message?.file.width} onClick={()=>openFullImage(message?.file?.src)} src={message?.file?.src} alt="image" loading="lazy" onError={({ currentTarget }) => {currentTarget.onerror = null; currentTarget.src='./error.jpg';}}/>
-                  )}
+                  <Text message={message?.message}>
+                    <div className="message-text" dangerouslySetInnerHTML={{ __html: formatMessage(message.message) }}></div>
+                    <div className='date-text'>
+                      <Date/>
+                    </div>
+                  </Text>
+                ) : message?.type == 'image' ? (
+                  <Image image={message?.file} openFullImage={openFullImage}>
+                    <Date/>
+                  </Image>
+                ) : message?.type == 'video' ? (
+                  <Video video={message.file} openFullImage={openFullImage}>
+                    <Date/>
+                  </Video>
+                ) : ''}
               </C.Message>
             ) : (
-              <C.MessageDeleted>
-                <FaTrashAlt></FaTrashAlt> <C.SpanMessageDeleted>Mensagem excluída</C.SpanMessageDeleted>
-                <p>
-                  {message?.date && <ConvertDate hourAndMinutes={message?.date?.seconds} />}
-                </p>
-              </C.MessageDeleted>
+              <Deleted date={message?.date}/>
             )}
-            {!message.deleted &&
-              <C.MessageDate
-                typeImage={(message?.type === 'image' && !message?.deleted)}
-                className={userLoggedIn?.email !== user ? "other" : ""}
-              >
-                <span>
-                  {message?.date && <ConvertDate hourAndMinutes={message?.date?.seconds} />}
-                </span>
-                <span>
-                  {message.visualized && userLoggedIn?.email === user
-                    ? <BsCheckAll title="Visualizada" className="checkVisualized visualized" />
-                    : (!message.visualized && !message.deleted && userLoggedIn?.email === user
-                      ? <BsCheckLg title="Não visualizado" className="checkVisualized" />
-                      : null
-                    )
-                  }
-                </span>
-              </C.MessageDate>
-            }
           </C.Content>
           {!message?.deleted &&
             <C.Options  className={`options ${userLoggedIn?.email === user && "me"}`} isActive={messageInfo?.id == message?.id}>

@@ -65,27 +65,39 @@ const UploadArchives = ({ chatId, userInfo, sendFile, setSendFile, sendMessage, 
     if (selectedFiles.length > 0) {
       setLoadingUploadFiles(true);
 
-      try {
-        const uploadPromises = selectedFiles.map(async (selectedFile) => {
-          const randomId = v4();
-          const fileName = `<span class="math-inline">\{randomId\}\.</span>{selectedFile.name.split('.').pop()}`;
-          const storageRef = ref(storage, `files/<span class="math-inline">\{chatId\}/</span>{fileName}`);
-          const snapshot = await uploadBytes(storageRef, selectedFile);
-          const filePath = storageRef.fullPath;
-          const downloadURL = await getDownloadURL(snapshot.ref);
+    try {
+      const uploadPromises = selectedFiles.map(async (selectedFile) => {
 
-          return {
-            type: selectedFile.type.split('/')[0], // Tipo principal (imagem, vídeo, etc.)
-            extension: selectedFile.name.split('.').pop(),
-            name: selectedFile.name.replace('.' + selectedFile.name.split('.').pop(), ''),
-            src: downloadURL,
-            filePath: filePath,
-          };
-        });
+        const randomId = v4();
+        const fileName = `${randomId}.${selectedFile.name.split('.').pop()}`;
+        const storageRef = ref(storage, `files/${chatId}/${fileName}`);
+        const snapshot = await uploadBytes(storageRef, selectedFile);
+        const filePath = storageRef.fullPath;
+        const downloadURL = await getDownloadURL(snapshot.ref);
 
-        const uploadedFiles = await Promise.all(uploadPromises);
-        uploadedFiles.forEach((file) => sendMessage(file.type, file));
+        let fileType = '';
+        // Verificar o tipo de arquivo e definir o tipo corretamente
+        if (selectedFile.type.startsWith('image')) {
+          fileType = 'image';
+        } else if (selectedFile.type.startsWith('video')) {
+          fileType = 'video';
+        } else {
+          fileType = 'document';
+        }
+        return {
+          type: fileType,
+          extension_name: getFileType(selectedFile.type),
+          extension: selectedFile.name.split('.').pop(),
+          name: selectedFile.name.replace('.' + selectedFile.name.split('.').pop(), '').replace(/_/g, ' '),
+          src: downloadURL,
+          filePath: filePath,
+          size: selectedFile.size,
+        };
+      });
 
+      const uploadedFiles = await Promise.all(uploadPromises);
+      uploadedFiles.forEach((file) => sendMessage(file.type, file, file.size));
+  
         // Limpar seleção após upload
         setSelectedFiles([]);
         setPreviewUrls([]);
@@ -96,7 +108,7 @@ const UploadArchives = ({ chatId, userInfo, sendFile, setSendFile, sendMessage, 
         console.error('Erro ao fazer upload dos arquivos:', error);
       }
     }
-  };
+  };  
   
   const closesendFile = () => {
     setSelectedFiles([]);

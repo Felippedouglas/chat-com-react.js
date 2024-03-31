@@ -10,17 +10,6 @@ export const Container = styled.div `
         font-weight: 600;
         font-size: .95rem;
     }
-    
-    span {
-        font-weight: 500;
-        font-size: .85rem;
-        color: #ccc;
-        -webkit-line-clamp: 1;
-        -webkit-box-orient: vertical;
-        display: -webkit-box;
-        text-overflow: ellipsis;
-        overflow: hidden;
-    }
 
     div {
         display: flex;
@@ -32,6 +21,23 @@ export const Container = styled.div `
         height: 50px;
         object-fit: cover;
         margin: 0 10px 0 20px;
+    }
+
+    .description {
+        display: flex;
+        align-items: center;
+        font-weight: 500;
+        font-size: .85rem;
+        color: #ccc;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        display: -webkit-box;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+
+    .description svg {
+        margin-right: 5px;
     }
 `
 

@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 
 import * as C from './styles.js';
+import { IoIosDocument } from "react-icons/io";
+import { IoMdVideocam } from "react-icons/io";
 
 export default function Reply( { message, setShowReply, setMessageReply } ) {
 
@@ -26,7 +28,13 @@ export default function Reply( { message, setShowReply, setMessageReply } ) {
                 <section>
                     <p>Responder</p>
                     {message?.type == 'text' &&
-                        <span>{message?.message}</span>
+                        <span className="description message-text">{message?.message}</span>
+                    }
+                    {message?.type == 'document' &&
+                        <span className="description"><IoIosDocument /> {message?.file.name}</span>
+                    }
+                    {message?.type == 'video' &&
+                        <span className="description"><IoMdVideocam /> video</span>
                     }
                 </section>
                 {message?.type == 'image' &&

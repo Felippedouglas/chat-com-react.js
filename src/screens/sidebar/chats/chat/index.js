@@ -2,10 +2,11 @@ import React from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../../../../services/firebase";
 import * as C from "./styles";
-import { MdPerson } from "react-icons/md";
+import { MdInsertPhoto, MdPerson } from "react-icons/md";
 import { BsCheckAll, BsCameraFill } from "react-icons/bs";
-import { FaTrashAlt } from "react-icons/fa";
+import { FaTrashAlt, FaVideo } from "react-icons/fa";
 import ConvertDate from "../../../../components/convert-date";
+import { IoDocument } from "react-icons/io5";
 
 const getUser = (users, userLogged) =>
   users?.filter((user) => user !== userLogged?.email)[0];
@@ -64,7 +65,18 @@ const Chat = ({ id, users, user, setUserChat, active, arquived, arquivedEmail })
             {(message?.docs[0]?.data()) &&
               <C.FooterBody>
                 <C.ContainerMessage>
-                  <C.Message>{(message?.docs[0]?.data()?.type == 'image' && !message?.docs[0]?.data()?.deleted) && <span className="svg-camera"><BsCameraFill/></span>} {message?.docs[0]?.data()?.deleted ? <C.MessageDeleted><FaTrashAlt></FaTrashAlt> <C.SpanMessageDeleted></C.SpanMessageDeleted>Mensagem Excluida</C.MessageDeleted> : message?.docs[0]?.data()?.type == 'text' ? <p dangerouslySetInnerHTML={{ __html: sanitizeMessage(message?.docs[0]?.data()?.message) }}></p> : 'Foto'}</C.Message>
+                  <C.Message>
+                    {message?.docs[0]?.data()?.deleted ?
+                      <C.MessageDeleted><FaTrashAlt></FaTrashAlt> <C.SpanMessageDeleted></C.SpanMessageDeleted>Mensagem Excluida</C.MessageDeleted>
+                      : message?.docs[0]?.data()?.type == 'image' ?
+                        <span className="svg-camera"><MdInsertPhoto/> Imagem</span>
+                      : message?.docs[0]?.data()?.type == 'video' ?
+                        <span className="svg-camera"><FaVideo/> Video</span>
+                      :  message?.docs[0]?.data()?.type == 'document' ?
+                        <span className="svg-camera"><IoDocument/> Documento</span>
+                      : <p dangerouslySetInnerHTML={{ __html: sanitizeMessage(message?.docs[0]?.data()?.message) }}></p>
+                    }
+                  </C.Message>
                 </C.ContainerMessage>
                 {(message?.docs[0]?.data().user === user.email && !message?.docs[0]?.data()?.deleted) &&
                   <>

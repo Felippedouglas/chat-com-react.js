@@ -1,6 +1,6 @@
 import { copyMessage } from "./copy";
 import { deleteMessage } from "./delete";
-import { downloadMessage } from "./download";
+import { downloadArchive } from "./download";
 
 import { IoIosCopy, IoMdTrash } from "react-icons/io";
 import { MdDownload } from "react-icons/md";
@@ -36,7 +36,7 @@ export default function Options ({ chatId, message, canDelete, copied, setCopied
         <C.Container ref={Container} containerOnTop={message_group_index >= 1 || ((message_index > 1) && (message_group_index == 0))} by_other_user={!canDelete}>
             <button onClick={()=>defineMessageReply(message)}><BsFillReplyFill></BsFillReplyFill> Responder</button>
             {message?.type != 'text' &&
-                <button onClick={()=>downloadMessage(message.file)}><MdDownload></MdDownload> Baixar</button>
+                <button onClick={()=>downloadArchive(message.file)}><MdDownload></MdDownload> Baixar</button>
             }
             {canDelete &&
                 <button onClick={()=>deleteMessage(message, chatId, setShowOptions, setShowReply, setMessageReply)}><IoMdTrash></IoMdTrash> Excluir</button>

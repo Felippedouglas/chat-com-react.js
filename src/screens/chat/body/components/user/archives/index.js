@@ -4,6 +4,7 @@ import { db } from "../../../../../../services/firebase";
 import { FaChevronRight, FaChevronLeft } from "react-icons/fa";
 
 import * as C from './styles.js';
+import Document from "./document/index.js";
 
 export default function Archives({ chatId, openArchive, setScreen, showAll }) {
 
@@ -34,16 +35,12 @@ export default function Archives({ chatId, openArchive, setScreen, showAll }) {
   }
 
   const fileRenderer = (message, index ) => {
-    
+        
     if (message.file.type === 'image') {
       return <Image image={message} index={index}/>;
-    } else if (message.file.type === 'document') {
+    } else if ((message.file.type === 'document') || message.file.type == 'video') {
       return (
-        <p key={index}>Document: {message.file.name}</p>
-    );
-  } else if (message.file.type === 'video') {
-    return (
-        <p key={index}>Video: {message.file.name}</p>
+        <Document document={message} index={index} showAll={showAll}/>
     );
   } else {
     return (
@@ -57,18 +54,19 @@ return (
     <header className="header">
       <section>
         {showAll &&
-          <button  utton onClick={()=>setScreen('')}><FaChevronLeft/></button>
+          <button onClick={()=>setScreen('')}><FaChevronLeft/></button>
         }
         <h3>Arquivos</h3>
       </section>
       {!showAll &&
-        <button  utton onClick={()=>setScreen('archives')}><FaChevronRight/></button>
+        <button onClick={()=>setScreen('archives')}><FaChevronRight/></button>
       }
     </header>
     <C.Content showAll={showAll}>
-      {archives.slice(0, showAll ? 10000 : 10).map((message, index) => (
+      {archives.slice(0, showAll ? 10000 : 10).map((message, index) =>
+      !message?.deleted && (
         <div key={index}>
-            {fileRenderer(message, index)}
+          {fileRenderer(message, index)}
         </div>
       ))}
     </C.Content>

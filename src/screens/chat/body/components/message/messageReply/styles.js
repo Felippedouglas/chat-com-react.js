@@ -6,8 +6,7 @@ export const Container = styled.div`
     align-items: center;
     background: #ffffff50;
     padding: 5px 10px;
-    margin: ${props => props.type != 'text' ? '5px 2px 10px 2px' : '0 0 10px 0'};
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
     max-width: ${props => props.type != 'text' ? '400px' : 'unset'};
     min-width: 100%;
   
