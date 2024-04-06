@@ -1,14 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import * as C from "./styles";
 import { db } from "../../../../../services/firebase";
-import { useAuthState } from "react-firebase-hooks/auth";
-import { auth } from "../../../../../services/firebase";
 import { doc, updateDoc } from "firebase/firestore";
-import { FaTrashAlt, FaChevronDown  } from "react-icons/fa";
 import { BsCheckAll, BsCheckLg } from "react-icons/bs";
 import firebase from "firebase/compat/app";
 import ConvertDate from "../../../../../components/convert-date";
-import FullImage from "../../../../../components/full-image";
 import Options from "./options";
 import { HiDotsHorizontal } from "react-icons/hi";
 import { MessageReply } from "./messageReply";
@@ -18,11 +14,7 @@ import Video from "./components/video";
 import Image from "./components/Image";
 import Text from "./components/text";
 
-const Message = ({ user, message, chatId, showOptions, setShowOptions, messageInfo, setMessageInfo, userLoggedIn, setShowReply, messageReply, setMessageReply, userInfo, message_reply, message_group_index, message_index }) => {
-
-  const [ showFullImage, setShowFullImage ] = useState(false);
-  const [ fullImageSrc, setFullImageSrc ] = useState('');
-  const [ typeViewer, setTypeViewer ] = useState('');
+const Message = ({ user, message, chatId, showOptions, setShowOptions, messageInfo, setMessageInfo, userLoggedIn, setShowReply, messageReply, setMessageReply, userInfo, message_reply, message_group_index, message_index, setShowPopUpArchives, setArchive, setArchives }) => {
   
   const [copied, setCopied] = useState(false);
 
@@ -41,10 +33,9 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
 
   }, [message]);
 
-  const openFullImage = (src, type)=> {
-    setShowFullImage(true);
-    setFullImageSrc(src);
-    setTypeViewer(type);
+  const openArchivePopUp = (archive)=> {
+    setShowPopUpArchives(true);
+    setArchive(archive);
   };
   
   const linkRegex = /(?:^|\s)(?:(?:https?|ftp):\/\/|www\.)?[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?(?=\s|$)/;
@@ -122,11 +113,6 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
   return (
     
     <C.Container id={message?.id}>
-      
-      {showFullImage &&
-        <FullImage user={userInfo} setShowFullImage={setShowFullImage} image={fullImageSrc} imageName={'photo'} typeViewer={typeViewer}/>
-      }
-
 
       {message &&
         <C.Line onDoubleClick={()=>defineMessageReply(message)} className={userLoggedIn?.email === user ? "me" : ""} active={messageReply?.id == message?.id} typeImage={message?.type == 'image' && !message?.deleted}>
@@ -151,11 +137,11 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
                     </div>
                   </Text>
                 ) : message?.type == 'image' ? (
-                  <Image image={message?.file} openFullImage={openFullImage}>
+                  <Image image={message?.file} openArchivePopUp={openArchivePopUp}>
                     <Date/>
                   </Image>
                 ) : message?.type == 'video' ? (
-                  <Video video={message.file} openFullImage={openFullImage}>
+                  <Video video={message.file} openArchivePopUp={openArchivePopUp}>
                     <Date/>
                   </Video>
                 ) : ''}

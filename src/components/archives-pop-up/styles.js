@@ -15,7 +15,7 @@ export const Content = styled.div`
     width: 100%;
     height: 100%;
     padding: 20px;
-    z-index: 3;
+    z-index: 9;
     
     img, video {
         max-width: 85%;
@@ -28,9 +28,18 @@ export const Content = styled.div`
 
 export const Header = styled.header `
     display: flex;
+    justify-content: space-between;
     align-items: center;
+    
+    div {
+        display: flex;
+        align-items: center;
+    }
 
-    .close {
+    button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         width: 40px;
         height: 40px;
         background: #252525;
@@ -40,11 +49,11 @@ export const Header = styled.header `
         transition: all .3s ease;
     }
 
-    .close:hover {
+    button:hover {
         background: #505050;
     }
 
-    .close svg {
+    button svg {
         color: #fff;
         width: 25px;
         height: 25px;

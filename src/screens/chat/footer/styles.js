@@ -12,7 +12,7 @@ export const Container = styled.footer`
   padding: 10px 20px;
   background-color: #202020;
   box-shadow: 2px 1px 3px 1px #0003;
-  z-index: 2;
+  z-index: 1;
 
   svg {
     width: 25px;

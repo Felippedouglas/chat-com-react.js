@@ -1,32 +1,24 @@
 import React, { useEffect, useRef } from "react";
-import { db, app, auth } from "../../../services/firebase";
+import { db, auth } from "../../../services/firebase";
 import * as C from "./styles";
 import Message from "./components/message";
 import { useState } from "react";
 import User from "./components/user";
-import { FaVideo } from "react-icons/fa";
-import { IoMdTrash } from "react-icons/io";
-import { MdInsertPhoto } from "react-icons/md";
-import { IoDocument } from "react-icons/io5";
 import { useAuthState } from "react-firebase-hooks/auth";
-import Options from "./components/message/options";
 import ModalArchives from "./components/modal-archives";
 import Loading from "../../../components/load";
 import Reply from "./components/reply";
 
-const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetails, userInfo, isOpenPopUpSendArchives, setIsOpenPopUpSendArchives, setFileType, setSendFile, showReply, setShowReply, messageReply, setMessageReply }) => {
+const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetails, userInfo, isOpenPopUpSendArchives, setIsOpenPopUpSendArchives, setFileType, setSendFile, showReply, setShowReply, messageReply, setMessageReply, setShowPopUpArchives, setArchive, setArchives }) => {
   
   const [ user ] = useAuthState(auth);
 
   const [ allMessages, setAllMessages ] = useState([]);
 
   const [ messagesLoaded, setMessagesLoaded ] = useState(false);
-  const [ moreMessages, setMoreMessages ] = useState(1);
 
   const refBody = useRef("");
   const refMessages = useRef(null);
-
-  const [ showButtonScrollToBottom, setShowButtonScrollToBottom ] = useState();
 
   const [ messageInfo, setMessageInfo ] = useState(null);
   const [ showOptions, setShowOptions ] = useState(false);
@@ -200,6 +192,9 @@ const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetai
                     message_reply={allMessages.find(objeto => objeto.id == message.reply_message)}
                     message_index={index}
                     message_group_index={key_group}
+                    setShowPopUpArchives={setShowPopUpArchives}
+                    setArchive={setArchive}
+                    setArchives={setArchives}
                   />
                 )
                 })
@@ -216,7 +211,15 @@ const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetai
       </C.ScrollMessages>
       {showUserDetails &&
         <C.Scroll showUserDetails={showUserDetails}>
-          <User chatId={chatId} userInfo={userInfo} showUserDetails={showUserDetails} setShowUserDetails={setShowUserDetails}/>
+          <User
+            chatId={chatId}
+            userInfo={userInfo}
+            showUserDetails={showUserDetails}
+            setShowUserDetails={setShowUserDetails}
+            setShowPopUpArchives={setShowPopUpArchives}
+            setArchive={setArchive}
+            setArchives={setArchives}
+          />
         </C.Scroll>
       }
     </C.Container>

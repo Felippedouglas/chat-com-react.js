@@ -10,7 +10,7 @@ export const Container = styled.div`
     background: #202020;
     color: #fff;
     padding: 15px;
-    z-index: 2;
+    z-index: 1;
 
     &::-webkit-scrollbar {
         width: 100px !important;

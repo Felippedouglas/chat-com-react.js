@@ -1,7 +1,3 @@
-import React, { useState } from 'react';import firebase from 'firebase/compat/app';
-import 'firebase/compat/storage';
-import { getDownloadURL, getStorage, ref } from 'firebase/storage';
-
 const downloadArchive = async (file) => {
     try {
         const response = await fetch(file.src);

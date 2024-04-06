@@ -28,7 +28,7 @@ export default function Archives({ chatId, openArchive, setScreen, showAll }) {
 
   const Image = ({ image, index })=>{
     return (
-      <C.Button onClick={()=>openArchive(image.file.src)}>
+      <C.Button onClick={()=>openArchive(image.file)}>
         <C.Image showAll={showAll} src={image.file.src} key={index} alt={`Image ${index}`} height='100px'/>
       </C.Button>
     )
@@ -40,7 +40,7 @@ export default function Archives({ chatId, openArchive, setScreen, showAll }) {
       return <Image image={message} index={index}/>;
     } else if ((message.file.type === 'document') || message.file.type == 'video') {
       return (
-        <Document document={message} index={index} showAll={showAll}/>
+        <Document document={message} index={index} showAll={showAll} openArchive={openArchive}/>
     );
   } else {
     return (

@@ -2,20 +2,16 @@ import { useState } from "react";
 import * as C from "./styles";
 import { RiCloseFill } from 'react-icons/ri';
 import { MdEmail, MdPerson } from 'react-icons/md';
-import FullImage from '../../../../../components/full-image';
 import Loading from "../../../../../components/load";
 import Archives from "./archives";
 
-const UserDetails = ({ setShowUserDetails, userInfo, chatId })=> {
-
-    const [ showFullImage, setShowFullImage ] = useState(false);
-    const [ archive, setArchive ] = useState();
+const UserDetails = ({ setShowUserDetails, userInfo, chatId, setShowPopUpArchives, setArchive })=> {
 
     const [ screen, setScreen ] = useState('');
 
-    const openArchive = (src) => {
-        setShowFullImage(true);
-        setArchive(src);
+    const openArchive = (archive) => {
+        setShowPopUpArchives(true);
+        setArchive(archive);
     }
 
     const Default = ()=> {
@@ -52,9 +48,6 @@ const UserDetails = ({ setShowUserDetails, userInfo, chatId })=> {
                 
             }
             {(screen == '' || screen == 'archives') && <Archives chatId={chatId} openArchive={openArchive} showAll={screen == 'archives'} setScreen={setScreen}/>}
-            {showFullImage &&
-                <FullImage setShowFullImage={setShowFullImage} image={archive} imageName={'user'}/>
-            }
         </C.Container>
     )
 }

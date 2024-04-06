@@ -2,15 +2,15 @@ import React, { useState, useEffect } from "react";
 import * as C from "./styles";
 import GetUserDetails from "../../../components/get-user-details";
 import ConvertDate from "../../../components/convert-date";
-import FullImage from "../../../components/full-image";
+import FullImage from "../../../components/archives-pop-up";
 import { MdMoreVert, MdPerson } from "react-icons/md";
 import { FiClock } from "react-icons/fi";
 import { BiError } from "react-icons/bi";
 import { IoIosArrowBack } from "react-icons/io";
 
-const ChatHeader = ({ userChat, setUserChat, userInfo, setUserInfo, showUserDetails, setShowUserDetails }) => {
+const ChatHeader = ({ userChat, setUserChat, userInfo, setUserInfo, showUserDetails, setShowUserDetails, setShowPopUpArchives, setArchive }) => {
+  
   const [onlineStatus, setOnlineStatus] = useState(false);
-  const [showFullImage, setShowFullImage] = useState(false);
 
   useEffect(() => {
 
@@ -33,6 +33,16 @@ const ChatHeader = ({ userChat, setUserChat, userInfo, setUserInfo, showUserDeta
     setOnlineStatus(isOnline); // Atualizar o status online
 };
 
+const openArchive = ()=> {
+  setArchive({
+    src: String(userInfo.photoURL).replace("s96", "s1000"),
+    name: 'User avatar',
+    type: 'image'
+  });
+
+  setShowPopUpArchives(true);
+}
+
   return (
     <C.Container>
       <GetUserDetails userEmail={userChat.email} setUserInfo={setUserInfo} />
@@ -43,7 +53,7 @@ const ChatHeader = ({ userChat, setUserChat, userInfo, setUserInfo, showUserDeta
           </C.BackDefault>
         )}
         {userChat.photoURL ? (
-          <C.Avatar src={userChat.photoURL} alt="user" onClick={() => setShowFullImage(true)} />
+          <C.Avatar src={userChat.photoURL} alt="user" onClick={() => openArchive(true)} />
         ) : (
           <MdPerson />
         )}
@@ -64,8 +74,6 @@ const ChatHeader = ({ userChat, setUserChat, userInfo, setUserInfo, showUserDeta
       <C.Options>
         <MdMoreVert onClick={() => setShowUserDetails(true)} />
       </C.Options>
-
-      {showFullImage && <FullImage setShowFullImage={setShowFullImage} image={String(userInfo.photoURL).replace("s96", "s1000")} imageName={"user"} />}
     </C.Container>
   );
 };
