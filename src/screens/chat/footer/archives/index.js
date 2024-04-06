@@ -203,7 +203,10 @@ const UploadArchives = ({ chatId, userInfo, sendFile, setSendFile, sendMessage, 
         }
         <input
           type="file"
-          accept={allowedExtensions} // Adicionar tipos de arquivos adicionais aqui
+          accept={fileType === 'image' ? '.jpg,.jpeg,.png' 
+            : fileType === 'video' ? '.mp4,.mov,.avi' 
+            : fileType === 'document' ? '.doc,.docx,.pdf' 
+            : '.jpg,.jpeg,.png'}
           onChange={handleFileInputChange}
           ref={fileInputRef}
           style={{ display: 'none' }}

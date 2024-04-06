@@ -74,7 +74,7 @@ const Chat = ({ id, users, user, setUserChat, active, arquived, arquivedEmail })
                         <span className="svg-camera"><FaVideo/> Video</span>
                       :  message?.docs[0]?.data()?.type == 'document' ?
                         <span className="svg-camera"><IoDocument/> Documento</span>
-                      : <p dangerouslySetInnerHTML={{ __html: sanitizeMessage(message?.docs[0]?.data()?.message) }}></p>
+                      : <span dangerouslySetInnerHTML={{ __html: sanitizeMessage(message?.docs[0]?.data()?.message) }}></span>
                     }
                   </C.Message>
                 </C.ContainerMessage>
