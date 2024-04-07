@@ -38,6 +38,22 @@ export const Content = styled.div `
     grid-template-columns: repeat(4, 1fr);
     margin-top: 20px;
     overflow: ${props => props.showAll ? 'auto' : 'hidden'};
+    
+    @media (max-width: 1500px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (max-width: 800px) {
+        grid-template-columns: repeat(4, 1fr);
+    }
+    
+    @media (max-width: 500px) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    @media (max-width: 300px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
 
     &::after {
         content: '';
