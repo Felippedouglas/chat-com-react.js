@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Sidebar from "./screens/sidebar";
 import * as C from "./styles/app";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { auth, db } from "./services/firebase";
+import { auth , db } from "./services/firebase";
 import firebase from "firebase/compat/app";
 import Login from "./screens/login";
 import Load from "./components/load";
@@ -30,7 +30,8 @@ const App = () => {
       name: user.displayName,
       photoURL: user.photoURL,
       lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
-      onlineAt: onlineAtTimestamp
+      onlineAt: onlineAtTimestamp,
+      uid: user?.uid
     });
   }
   
@@ -45,7 +46,7 @@ const App = () => {
   return (
     <C.Container>
       <Sidebar setUserChat={setUserChat} userChat={userChat} newChat={newChat} setNewChat={setNewChat}/>
-      <Chat userChat={userChat} setUserChat={setUserChat} newChat={newChat} setNewChat={setNewChat} />
+      <Chat user={user} userChat={userChat} setUserChat={setUserChat} newChat={newChat} setNewChat={setNewChat} />
     </C.Container>
   );
 };

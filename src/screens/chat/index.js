@@ -7,7 +7,7 @@ import Footer from "./footer";
 import ArchivesPopUp from "../../components/archives-pop-up";
 
 
-const Chat = ({ userChat, setUserChat, setNewChat }) => {
+const Chat = ({ user, userChat, setUserChat, setNewChat }) => {
 
   const [ messages, setMessages ] = useState({});
 
@@ -31,7 +31,7 @@ const Chat = ({ userChat, setUserChat, setNewChat }) => {
 
   return (
     <C.Container>
-      <Header chatId={userChat?.chatId} setArchive={setArchive} setShowPopUpArchives={setShowPopUpArchives} showUserDetails={showUserDetails} setShowUserDetails={setShowUserDetails} userChat={userChat} setUserChat={setUserChat} userInfo={userInfo} setUserInfo={setUserInfo} />
+      <Header user={user} chatId={userChat?.chatId} setArchive={setArchive} setShowPopUpArchives={setShowPopUpArchives} showUserDetails={showUserDetails} setShowUserDetails={setShowUserDetails} userChat={userChat} setUserChat={setUserChat} userInfo={userInfo} setUserInfo={setUserInfo} />
       {!filesSendLength >= 1 &&
         <Body isOpenPopUpSendArchives={isOpenPopUpSendArchives} messages={messages} setMessages={setMessages} setIsOpenPopUpSendArchives={setIsOpenPopUpSendArchives} showUserDetails={showUserDetails} sendFile={sendFile} setShowUserDetails={setShowUserDetails} chatId={userChat?.chatId} userInfo={userInfo} setUserInfo={setUserInfo} setNewChat={setNewChat} setSendFile={setSendFile} showReply={showReply} setShowReply={setShowReply}
         messageReply={messageReply} setMessageReply={setMessageReply} setFileType={setFileType} setArchive={setArchive} setArchives={setArchives} setShowPopUpArchives={setShowPopUpArchives}/>

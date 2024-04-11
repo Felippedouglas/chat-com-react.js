@@ -7,6 +7,8 @@ import { MdMoreVert, MdPerson } from "react-icons/md";
 import { FiClock } from "react-icons/fi";
 import { BiError } from "react-icons/bi";
 import { IoIosArrowBack } from "react-icons/io";
+import { db, auth } from '../../../services/firebase'
+import { doc, setDoc } from "firebase/firestore";
 
 const ChatHeader = ({ userChat, setUserChat, userInfo, setUserInfo, showUserDetails, setShowUserDetails, setShowPopUpArchives, setArchive }) => {
   
@@ -31,17 +33,17 @@ const ChatHeader = ({ userChat, setUserChat, userInfo, setUserInfo, showUserDeta
     const isOnline = onlineAtSeconds > currentTimestamp;
 
     setOnlineStatus(isOnline); // Atualizar o status online
-};
+  };
 
-const openArchive = ()=> {
-  setArchive({
-    src: String(userInfo.photoURL).replace("s96", "s1000"),
-    name: 'User avatar',
-    type: 'image'
-  });
+  const openArchive = ()=> {
+    setArchive({
+      src: String(userInfo.photoURL).replace("s96", "s1000"),
+      name: 'User avatar',
+      type: 'image'
+    });
 
-  setShowPopUpArchives(true);
-}
+    setShowPopUpArchives(true);
+  }
 
   return (
     <C.Container>
