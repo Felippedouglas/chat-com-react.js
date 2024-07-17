@@ -11,7 +11,7 @@ const Sidebar = ({ setUserChat, userChat, newChat, setNewChat }) => {
 
   const [user] = useAuthState(auth);
 
-  const [ screen, setScreen ] = useState('profile');
+  const [ screen, setScreen ] = useState('chats');
 
   return (
     <C.Container userChat={userChat}>

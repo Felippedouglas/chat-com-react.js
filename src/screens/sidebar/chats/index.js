@@ -7,6 +7,7 @@ import Chat from "./chat";
 import { useEffect } from "react";
 import firebase from "firebase/compat/app";
 import Loading from "../../../components/load";
+import AudioPlaying from "../../../components/audio-playing";
 
 const Chats = ({ setUserChat, userChat }) => {
 
@@ -98,6 +99,10 @@ const Chats = ({ setUserChat, userChat }) => {
 
   return (
     <C.Container>
+
+      {chats &&
+        <AudioPlaying />
+      }
 
       {!chats && <Loading/>}
       {(chats && chats.length >= 1) && chats.map((item, index) => (

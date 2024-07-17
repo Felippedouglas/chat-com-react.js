@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import * as C from './styles.js';
-import { IoPlay } from 'react-icons/io5';
+import { IoClose, IoPlay } from 'react-icons/io5';
 import { IoIosPause } from 'react-icons/io';
-import { MdAudiotrack } from 'react-icons/md';
 import { FiMusic } from 'react-icons/fi';
 
-const Audio = ({ children, audio }) => {
+const AudioPlaying = ( { src, time, user } ) => {
+
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('0:00');
@@ -56,7 +56,7 @@ const Audio = ({ children, audio }) => {
 
   useEffect(() => {
     const player = playerRef.current;
-    if (audio.src && player) {
+    if (src && player) {
       player.addEventListener('loadedmetadata', () => {
         const durationFormatted = isNaN(player.duration) ? 0 : player.duration;
         const durationMinutes = Math.floor(durationFormatted / 60);
@@ -64,7 +64,7 @@ const Audio = ({ children, audio }) => {
         setDuration(`${durationMinutes}:${formatZero(durationSeconds)}`);
       });
     }
-  }, [audio.src]);
+  }, [ src ]);
 
   const togglePlay = () => {
     const player = playerRef.current;
@@ -80,12 +80,16 @@ const Audio = ({ children, audio }) => {
 
   return (
     <C.Container>
+      <header className='header'>
+        <span className='name'>Laiz Gabriela</span>
+        <button><IoClose /></button>
+      </header>
       <C.Content>
         <div className="player">
           <div className='div-image'>
-            <FiMusic/>
+            <img src={"https://lh3.googleusercontent.com/a/ACg8ocKxNZIf-hjxTkrL45JZGXkSzSvhL2t8gZYC7x_g6nnnBSQk9O5cOw=s96-c"} alt="user photo"/>
           </div>
-          <audio ref={playerRef} src={audio.src}></audio>
+          <audio ref={playerRef} src={src}></audio>
           <div className="controls">
             <button onClick={togglePlay}>
               {isPlaying ? <IoIosPause/> : <IoPlay/>}
@@ -109,7 +113,6 @@ const Audio = ({ children, audio }) => {
                 :
                   <span>{duration}</span>
                 }
-                {children}
               </div>
             </div>
           </div>
@@ -119,4 +122,4 @@ const Audio = ({ children, audio }) => {
   );
 };
 
-export default Audio;
+export default AudioPlaying;

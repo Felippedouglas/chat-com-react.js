@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import * as C from './styles.js';
 import { IoPlay } from 'react-icons/io5';
 import { IoIosPause } from 'react-icons/io';
+import { MdAudiotrack } from 'react-icons/md';
 import { FiMusic } from 'react-icons/fi';
 
-const AudioPlaying = ( { src, time } ) => {
-
+const Audio = ({ children, audio }) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState('0:00');
   const [duration, setDuration] = useState('0:00');
@@ -56,7 +56,7 @@ const AudioPlaying = ( { src, time } ) => {
 
   useEffect(() => {
     const player = playerRef.current;
-    if (src && player) {
+    if (audio.src && player) {
       player.addEventListener('loadedmetadata', () => {
         const durationFormatted = isNaN(player.duration) ? 0 : player.duration;
         const durationMinutes = Math.floor(durationFormatted / 60);
@@ -64,7 +64,7 @@ const AudioPlaying = ( { src, time } ) => {
         setDuration(`${durationMinutes}:${formatZero(durationSeconds)}`);
       });
     }
-  }, [ src ]);
+  }, [audio.src]);
 
   const togglePlay = () => {
     const player = playerRef.current;
@@ -85,7 +85,7 @@ const AudioPlaying = ( { src, time } ) => {
           <div className='div-image'>
             <FiMusic/>
           </div>
-          <audio ref={playerRef} src={src}></audio>
+          <audio ref={playerRef} src={audio.src}></audio>
           <div className="controls">
             <button onClick={togglePlay}>
               {isPlaying ? <IoIosPause/> : <IoPlay/>}
@@ -109,6 +109,7 @@ const AudioPlaying = ( { src, time } ) => {
                 :
                   <span>{duration}</span>
                 }
+                {children}
               </div>
             </div>
           </div>

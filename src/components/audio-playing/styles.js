@@ -1,38 +1,80 @@
 import styled from "styled-components";
 
 export const Container = styled.div `
+
     display: flex;
+    position: sticky;
+    top: 5px;
+    margin: 0 5px;
     flex-direction: column;
-    align-items: end;
-    margin: 4px 4px 1px 4px;
-`
-export const Content = styled.div `
-    position: relative;
+    padding: 10px 20px 5px 20px;
+    background: #202020;
     overflow: hidden;
-    min-width: 250px;
+    border-bottom: 2px solid #000;
+    z-index: 1;
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .header .name {
+        color: #fff;
+        font-weight: 600;
+        font-size: .8rem;
+        margin-left: 5px;
+    }
+
+    .header button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        background: none;
+        border: none;
+        height: 25px;
+        width: 25px;
+        cursor: pointer;
+        border-radius: 50%;
+        transition: all .3s ease;
+    }
+    
+    .header button:hover {
+        background: #505050;
+    }
+    
+    .header button svg {
+        width: 25px;
+        color: #fff;
+    }
+`
+
+export const Content = styled.div `
+
+    position: relative;
+    width: 100%;
+    overflow: hidden;
 
     .player {
         display: flex;
         align-items: center;
         justify-content: space-around;
         width: 100%;
-        padding: 20px 5px;
+        padding: 5px 5px 15px 5px;
         border-radius: 5px;
-        min-width: 100%;
+        width: 100%;
     }
 
     .div-image {
         height: 35px;
         border-radius: 50px;
-        margin-right: 10px;
     }
     
-    .div-image svg {
+    .div-image img {
         height: 40px;
         width: 40px;
-        padding: 8px;
-        background: #181818;
-        color: #fff;
+        padding: 2px;
+        background: #1e90ff;
         border-radius: 50px;
     }
 
@@ -79,7 +121,7 @@ export const Content = styled.div `
         height: 8px;
         background-color: #ddd;
         cursor: pointer;
-        margin-bottom: 5px;
+        margin: 5px 0;
         border-radius: 5px;
     }
 
