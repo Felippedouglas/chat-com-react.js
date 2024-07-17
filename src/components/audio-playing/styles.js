@@ -4,8 +4,7 @@ export const Container = styled.div `
 
     display: flex;
     position: sticky;
-    top: 5px;
-    margin: 0 5px;
+    top: 0;
     flex-direction: column;
     padding: 10px 20px 5px 20px;
     background: #202020;
