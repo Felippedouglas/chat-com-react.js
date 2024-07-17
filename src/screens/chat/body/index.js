@@ -150,12 +150,12 @@ const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetai
   }, [ messagesLoaded ]);
 
   function defineSendFile(type) {
-    setSendFile(true);
-    setFileType(type);
+    setFileType(undefined);
+    setSendFile(false);  
     
     setTimeout(() => {
-      setFileType(undefined);
-      setSendFile(false);  
+      setSendFile(true);
+      setFileType(type);
     }, 100);
   };
 

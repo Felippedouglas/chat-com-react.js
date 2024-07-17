@@ -7,9 +7,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { useCollection } from "react-firebase-hooks/firestore";
 import NewChat from "../../../components/new-chat";
 
-const SidebarHeader = ({ setUserChat, newChat, setNewChat }) => {
+const SidebarHeader = ({ user, setUserChat, newChat, setNewChat, setScreen }) => {
 
-  const [user] = useAuthState(auth);
   const refChat = db
     .collection("chats")
     .where("users", "array-contains", user.email);
@@ -20,6 +19,7 @@ const SidebarHeader = ({ setUserChat, newChat, setNewChat }) => {
       {!newChat &&
         <>
           <C.Avatar
+            onClick={()=>setScreen('profile')}
             src={user?.photoURL}
           />
           <C.Options>

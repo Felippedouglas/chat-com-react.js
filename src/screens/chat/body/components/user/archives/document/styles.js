@@ -30,6 +30,7 @@ export const Button = styled.button `
         width: ${props => props.showAll ? '100%' : '80px'};
         font-weight: 500;
         font-size: .7rem;
+        margin-top: -10px;
     }
 `
 

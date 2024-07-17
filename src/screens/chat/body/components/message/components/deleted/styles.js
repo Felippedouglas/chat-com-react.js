@@ -18,4 +18,8 @@ export const MessageDeleted = styled.span`
   flex-flow: wrap;
   margin: 0 10px 0 5px;
   opacity: .8;
+
+  @media(max-width: 350px) {
+    font-size: .8rem;
+  }
 `;

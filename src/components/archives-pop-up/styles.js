@@ -17,7 +17,7 @@ export const Content = styled.div`
     padding: 20px;
     z-index: 9;
     
-    img, video {
+    img, video, audio {
         max-width: 85%;
         max-height: 85%;
         object-fit: contain;

@@ -2,7 +2,7 @@ import React from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import { db } from "../../../../services/firebase";
 import * as C from "./styles";
-import { MdInsertPhoto, MdPerson } from "react-icons/md";
+import { MdAudioFile, MdInsertPhoto, MdPerson } from "react-icons/md";
 import { BsCheckAll, BsCameraFill } from "react-icons/bs";
 import { FaTrashAlt, FaVideo } from "react-icons/fa";
 import ConvertDate from "../../../../components/convert-date";
@@ -68,6 +68,8 @@ const Chat = ({ id, users, user, setUserChat, active, arquived, arquivedEmail })
                   <C.Message>
                     {message?.docs[0]?.data()?.deleted ?
                       <C.MessageDeleted><FaTrashAlt></FaTrashAlt> <C.SpanMessageDeleted></C.SpanMessageDeleted>Mensagem Excluida</C.MessageDeleted>
+                      : message?.docs[0]?.data()?.type == 'audio' ?
+                        <span className="svg-camera"><MdAudioFile/> Áudio</span>
                       : message?.docs[0]?.data()?.type == 'image' ?
                         <span className="svg-camera"><MdInsertPhoto/> Imagem</span>
                       : message?.docs[0]?.data()?.type == 'video' ?

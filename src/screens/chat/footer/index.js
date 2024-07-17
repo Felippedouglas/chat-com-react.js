@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import * as C from "./styles";
-import { MdInsertPhoto } from "react-icons/md";
+import { ImFolderUpload  } from "react-icons/im";
 import { LuSendHorizonal } from "react-icons/lu";
 import { CgClose } from "react-icons/cg";
 import { auth, db } from "../../../services/firebase";
@@ -69,7 +69,7 @@ const ChatFooter = ({ chatId, userInfo, sendFile, setSendFile, filesSendLength ,
       <UploadArchives chatId={chatId} userInfo={userInfo} sendFile={sendFile} setSendFile={setSendFile} sendMessage={sendMessage} setFilesSendLength={setFilesSendLength} setIsOpenPopUpSendArchives={setIsOpenPopUpSendArchives} fileType={fileType} setFileType={setFileType}/>
       {!filesSendLength >= 1 &&
         <>
-          <C.FilesButton onClick={() => setIsOpenPopUpSendArchives(!isOpenPopUpSendArchives)}>{isOpenPopUpSendArchives ? <CgClose /> : <MdInsertPhoto />}</C.FilesButton>
+          <C.FilesButton onClick={() => setIsOpenPopUpSendArchives(!isOpenPopUpSendArchives)}>{isOpenPopUpSendArchives ? <CgClose /> : <ImFolderUpload  />}</C.FilesButton>
           <C.Form onSubmit={handleSendMessage}>
             <C.Input
               ref={refEmailInput}

@@ -13,6 +13,7 @@ import Deleted from "./components/deleted";
 import Video from "./components/video";
 import Image from "./components/Image";
 import Text from "./components/text";
+import Audio from "./components/audio";
 
 const Message = ({ user, message, chatId, showOptions, setShowOptions, messageInfo, setMessageInfo, userLoggedIn, setShowReply, messageReply, setMessageReply, userInfo, message_reply, message_group_index, message_index, setShowPopUpArchives, setArchive, setArchives }) => {
   
@@ -144,6 +145,10 @@ const Message = ({ user, message, chatId, showOptions, setShowOptions, messageIn
                   <Video video={message.file} openArchivePopUp={openArchivePopUp}>
                     <Date/>
                   </Video>
+                ) : message?.type == 'audio' ? (
+                  <Audio audio={message.file}>
+                    <Date/>
+                  </Audio>
                 ) : ''}
               </C.Message>
             ) : (

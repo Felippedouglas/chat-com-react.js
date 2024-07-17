@@ -4,7 +4,7 @@ import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { app } from "../../../../services/firebase";
 import imageCompression from 'browser-image-compression';
 import { v4 } from 'uuid';
-import { MdOutlineClose, MdSend } from "react-icons/md";
+import { MdAudioFile, MdOutlineClose, MdSend } from "react-icons/md";
 import { BiPlus } from "react-icons/bi";
 import Loading from "../../../../components/load";
 import { FaPlay } from "react-icons/fa";
@@ -20,11 +20,16 @@ const UploadArchives = ({ chatId, userInfo, sendFile, setSendFile, sendMessage, 
 
   const fileInputRef = useRef(null);
 
+  useEffect(()=>{
+    console.log(fileType)
+  }, [ fileType ])
+
   // Extensões permitidas
   const allowedExtensions = fileType === 'image' ? /(\.jpg|\.jpeg|\.png)$/i
     : fileType === 'video' ? /(\.mp4|\.mov|\.avi)$/i
-      : fileType === 'document' ? /(\.doc|\.docx|\.pdf)$/i
-        : /(\.jpg|\.jpeg|\.png)$/i;  // Padrão para imagens
+    : fileType === 'document' ? /(\.doc|\.docx|\.pdf|\.pptx)$/i
+    : fileType === 'audio' ? /(\.mp3|\.m4a)$/i
+    : /(\.jpg|\.jpeg|\.png)$/i;  // Padrão para imagens
 
   // Manipulação de input de arquivos
   const handleFileInputChange = async (event) => {
@@ -81,6 +86,8 @@ const UploadArchives = ({ chatId, userInfo, sendFile, setSendFile, sendMessage, 
           fileType = 'image';
         } else if (selectedFile.type.startsWith('video')) {
           fileType = 'video';
+        } else if (selectedFile.type.startsWith('audio')) {
+          fileType = 'audio';
         } else {
           fileType = 'document';
         }
@@ -184,6 +191,14 @@ const UploadArchives = ({ chatId, userInfo, sendFile, setSendFile, sendMessage, 
         return 'Documento Word (formato moderno)';
       case 'application/pdf':
         return 'Documento PDF';
+      case 'application/pptx':
+        return 'Documento Powerpoint';
+      case 'audio/mpeg':
+        return 'Áudio MP3';
+      case 'audio/wav':
+        return 'Áudio WAV';
+      case 'audio/m4a':
+        return 'Áudio M4A';
       default:
         return 'Arquivo';
     }
@@ -231,6 +246,12 @@ const UploadArchives = ({ chatId, userInfo, sendFile, setSendFile, sendMessage, 
             <p>{formatFileSize(selectedFiles[currentFileIndex]?.size)}</p>
           </div>
         )}
+        {fileType === 'audio' && selectedFiles && selectedFiles[currentFileIndex]?.type?.startsWith('audio') && (
+          <audio controls>
+            <source src={previewUrls[currentFileIndex]} type={selectedFiles[currentFileIndex]?.type} />
+            Seu navegador não suporta o elemento de áudio.
+          </audio>
+        )}
         <C.FooterSendArchives>
           {(selectedFiles && selectedFiles.length >= 1) ?
             <div></div>
@@ -259,6 +280,11 @@ const UploadArchives = ({ chatId, userInfo, sendFile, setSendFile, sendMessage, 
                 {selectedFiles[index].type.startsWith('application') && (
                   <div className="document" onClick={() => setCurrentFileIndex(index)}>
                     <IoIosDocument />
+                  </div>
+                )}
+                {selectedFiles[index].type.startsWith('audio') && (
+                  <div className="document" onClick={() => setCurrentFileIndex(index)}>
+                    <MdAudioFile />
                   </div>
                 )}
                 <C.RemoveArchiveSend className="bt-remove-archive" onClick={() => removeFile(index)}><MdOutlineClose /></C.RemoveArchiveSend>

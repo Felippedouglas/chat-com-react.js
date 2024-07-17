@@ -39,7 +39,8 @@ const ChatHeader = ({ userChat, setUserChat, userInfo, setUserInfo, showUserDeta
     setArchive({
       src: String(userInfo.photoURL).replace("s96", "s1000"),
       name: 'User avatar',
-      type: 'image'
+      type: 'image',
+      download_block: true
     });
 
     setShowPopUpArchives(true);

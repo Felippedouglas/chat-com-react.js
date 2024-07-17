@@ -9,6 +9,7 @@ import Load from "./components/load";
 import Chat from "./screens/chat";
 
 const App = () => {
+  
   const [ user, loading ] = useAuthState(auth);
   const [ userChat, setUserChat ] = useState(null);
   const [ newChat, setNewChat ] = useState(false);

@@ -20,7 +20,15 @@ const UserDetails = ({ setShowUserDetails, userInfo, chatId, setShowPopUpArchive
                 <C.Close onClick={()=>setShowUserDetails(false)}><RiCloseFill></RiCloseFill></C.Close>
                 <C.Body>
                     {userInfo.photoURL ?
-                        <C.Avatar onClick={()=>openArchive(String(userInfo.photoURL).replace("s96", "s1000"))}>
+                        <C.Avatar
+                            onClick={()=>openArchive({
+                                src: (String(userInfo?.photoURL).replace("s96", "s1000")),
+                                type: 'image',
+                                user: userInfo?.user,
+                                name: 'user avatar',
+                                download_block: true
+                            })}
+                        >
                             <img src={userInfo.photoURL}/>
                         </C.Avatar>
                     :

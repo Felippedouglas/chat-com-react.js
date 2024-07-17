@@ -38,7 +38,7 @@ export default function Archives({ chatId, openArchive, setScreen, showAll }) {
         
     if (message.file.type === 'image') {
       return <Image image={message} index={index}/>;
-    } else if ((message.file.type === 'document') || message.file.type == 'video') {
+    } else if ((message.file.type === 'document') || message.file.type == 'video' || message.file.type == 'audio') {
       return (
         <Document document={message} index={index} showAll={showAll} openArchive={openArchive}/>
     );
