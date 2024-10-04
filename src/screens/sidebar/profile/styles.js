@@ -53,9 +53,9 @@ export const Close = styled.button`
     border: none;
     height: 35px;
     width: 35px;
-    cursor: pointer;
     border-radius: 50%;
     margin-right: 15px;
+    cursor: pointer;
     transition: all .3s ease;
     
     &:hover {
@@ -132,7 +132,7 @@ export const Settings = styled.div `
         background: unset;
         border: none;
         color: #ccc;
-        cursor: pointer;
+        cursor: not-allowed;
         transition: all .3s ease;
 
         :hover {

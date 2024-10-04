@@ -100,8 +100,8 @@ const Chats = ({ setUserChat, userChat }) => {
   return (
     <C.Container>
 
-      {chats &&
-        <AudioPlaying />
+      {1==2 && chats &&
+        <AudioPlaying user={userChat} />
       }
 
       {!chats && <Loading/>}

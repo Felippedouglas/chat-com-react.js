@@ -64,7 +64,9 @@ const AudioPlaying = ( { src, time, user } ) => {
         setDuration(`${durationMinutes}:${formatZero(durationSeconds)}`);
       });
     }
-  }, [ src ]);
+
+    console.log(user);
+  }, [ src, user ]);
 
   const togglePlay = () => {
     const player = playerRef.current;
@@ -81,7 +83,7 @@ const AudioPlaying = ( { src, time, user } ) => {
   return (
     <C.Container>
       <header className='header'>
-        <span className='name'>Laiz Gabriela</span>
+        <span className='name'>{(user?.name.length > 15) ? `${(user?.slice(0, 15))}...` : user?.name.length < 15 ? user?.name : ''}</span>
         <button><IoClose /></button>
       </header>
       <C.Content>

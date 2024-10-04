@@ -75,7 +75,7 @@ const ChatHeader = ({ userChat, setUserChat, userInfo, setUserInfo, showUserDeta
         </C.NameContent>
       </C.UserInfo>
       <C.Options>
-        <MdMoreVert onClick={() => setShowUserDetails(true)} />
+        <MdMoreVert onClick={() => setShowUserDetails(true)} style={{cursor: showUserDetails ? 'not-allowed' : ''}} />
       </C.Options>
     </C.Container>
   );
