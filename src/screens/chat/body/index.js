@@ -137,11 +137,17 @@ const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetai
       return 'Hoje';
     } else if (differenceDays === 1) {
       return 'Ontem';
+    } else if (differenceDays > 7) {
+      const day = String(date.getDate()).padStart(2, '0');
+      const month = String(date.getMonth() + 1).padStart(2, '0'); // Meses começam do 0
+      const year = date.getFullYear();
+      return `${day}/${month}/${year}`;
     } else {
       const daysOfWeek = ['Domingo', 'Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
       return daysOfWeek[dayOfWeek];
     }
   }
+    
 
   useEffect(() => {
     if (messagesLoaded && refMessages?.current.scrollHeight > refMessages?.current.offsetHeight) {
@@ -170,7 +176,7 @@ const Body = ({ chatId, messages, setMessages, showUserDetails, setShowUserDetai
         {!messages && messagesLoaded && <Loading/>}
         {messages && Object.keys(messages).map((data, key_group) => (
           <div key={key_group}>
-            <h2 className="date">{getDayOfWeek(data)}</h2>
+            <h3 className="date">{getDayOfWeek(data)}</h3>
             <ul>
               {messages[data].map((message, index) => {
                 return (
