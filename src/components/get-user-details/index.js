@@ -21,7 +21,7 @@ const GetUserDetails = ({ userEmail, setUserInfo }) => {
       // Remova o listener quando o componente for desmontado
       querySnapshot();
     };
-  }, [ ])
+  }, [ userEmail ])
   
 }
 
